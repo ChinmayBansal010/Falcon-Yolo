@@ -33,6 +33,16 @@ Install the python libraries using the below command for any import errors
     pip install -r requirements.txt
     ```
 
+If you see this error
+
+Error #15: Initializing libiomp5md.dll, but found libiomp5md.dll already initialized.
+
+Then run in command-line after activating the enviornment\
+
+```bash
+set KMP_DUPLICATE_LIB_OK=TRUE 
+```
+
 ## Project Structure
 
 The project is organized into the following directories and files:
