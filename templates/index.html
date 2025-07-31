@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YOLOv8 Live Detection</title>
+    <!-- Use Tailwind CSS for modern styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .loader {
+            border-top-color: #3498db;
+            -webkit-animation: spinner 1.5s linear infinite;
+            animation: spinner 1.5s linear infinite;
+        }
+
+        @-webkit-keyframes spinner {
+            0% { -webkit-transform: rotate(0deg); }
+            100% { -webkit-transform: rotate(360deg); }
+        }
+
+        @keyframes spinner {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-white flex flex-col items-center justify-center min-h-screen p-4">
+    <h1 class="text-4xl font-bold mb-8 text-center text-blue-400">YOLOv8 Live Object Detection</h1>
+    <div class="bg-gray-800 p-6 rounded-2xl shadow-xl flex flex-col items-center max-w-full lg:max-w-4xl">
+        <!-- Video Container with a loading overlay -->
+        <div id="video-container" class="relative w-full aspect-video rounded-xl overflow-hidden mb-6 border-4 border-gray-700">
+            <img id="video-feed" src="" class="w-full h-full object-cover">
+            <div id="loading-overlay" class="absolute inset-0 bg-gray-800 flex items-center justify-center transition-opacity duration-300">
+                <div class="loader ease-linear rounded-full border-8 border-t-8 border-gray-500 h-16 w-16 animate-spin"></div>
+            </div>
+        </div>
+
+        <!-- Control buttons -->
+        <div class="flex space-x-4">
+            <button id="start-btn" class="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-xl shadow-lg transition-colors duration-300 transform hover:scale-105">Start Detection</button>
+            <button id="stop-btn" class="bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-6 rounded-xl shadow-lg transition-colors duration-300 transform hover:scale-105" disabled>Stop Detection</button>
+        </div>
+    </div>
+
+    <script>
+        const videoFeed = document.getElementById('video-feed');
+        const startBtn = document.getElementById('start-btn');
+        const stopBtn = document.getElementById('stop-btn');
+        const loadingOverlay = document.getElementById('loading-overlay');
+        let isStreaming = false;
+
+        startBtn.addEventListener('click', () => {
+            if (!isStreaming) {
+                isStreaming = true;
+                // Start the video stream by setting the image source to the Flask route
+                videoFeed.src = "{{ url_for('video_feed') }}";
+                
+                // Show the loading overlay while waiting for the first frame
+                loadingOverlay.style.opacity = '1';
+                loadingOverlay.style.visibility = 'visible';
+
+                // Once the first frame is loaded, hide the overlay
+                videoFeed.onload = () => {
+                    loadingOverlay.style.opacity = '0';
+                    loadingOverlay.style.visibility = 'hidden';
+                };
+
+                startBtn.disabled = true;
+                stopBtn.disabled = false;
+            }
+        });
+
+        stopBtn.addEventListener('click', () => {
+            if (isStreaming) {
+                isStreaming = false;
+                // Send a request to the server to stop the stream
+                fetch('/stop_stream');
+                // Clear the video feed
+                videoFeed.src = "";
+
+                startBtn.disabled = false;
+                stopBtn.disabled = true;
+                
+                // Show the loading overlay again
+                loadingOverlay.style.opacity = '1';
+                loadingOverlay.style.visibility = 'visible';
+            }
+        });
+    </script>
+</body>
+</html>
