@@ -4,16 +4,16 @@ import logging
 import os
 from ultralytics import YOLO
 
-# Logging setup
+# ==================== LOGGING CONFIGURATION ====================
 LOG_DIR = "logs"
-os.makedirs(LOG_DIR, exist_ok=True)
+os.makedirs(LOG_DIR, exist_ok=True)  
 logging.basicConfig(
     filename=os.path.join(LOG_DIR, "train.log"),
     level=logging.INFO,
     format="%(asctime)s - %(levelname)s - %(message)s",
 )
 
-# Default hyperparameters
+# ==================== DEFAULT HYPERPARAMETERS ====================
 DEFAULTS = {
     'epochs': 100,
     'mosaic': 0.7,
@@ -30,26 +30,33 @@ DEFAULTS = {
 }
 
 def main():
-    parser = argparse.ArgumentParser()
-    parser.add_argument('--data', type=str, default=DEFAULTS['data'])
-    parser.add_argument('--weights', type=str, default=DEFAULTS['weights'])
-    parser.add_argument('--epochs', type=int, default=DEFAULTS['epochs'])
-    parser.add_argument('--mosaic', type=float, default=DEFAULTS['mosaic'])
-    parser.add_argument('--optimizer', type=str, default=DEFAULTS['optimizer'])
-    parser.add_argument('--momentum', type=float, default=DEFAULTS['momentum'])
-    parser.add_argument('--lr0', type=float, default=DEFAULTS['lr0'])
-    parser.add_argument('--lrf', type=float, default=DEFAULTS['lrf'])
-    parser.add_argument('--single_cls', action='store_true')
-    parser.add_argument('--device', type=str, default=DEFAULTS['device'])
-    parser.add_argument('--batch', type=int, default=DEFAULTS['batch'])
-    parser.add_argument('--imgsz', type=int, default=DEFAULTS['imgsz'])
-    parser.add_argument('--save', action='store_true')
+    """
+    The main function to handle argument parsing, model initialization, and training.
+    """
+    # ==================== ARGUMENT PARSING ====================
+    parser = argparse.ArgumentParser(description="Train a YOLOv8 object detection model.")
+    parser.add_argument('--data', type=str, default=DEFAULTS['data'], help="Path to the YAML data configuration file.")
+    parser.add_argument('--weights', type=str, default=DEFAULTS['weights'], help="Path to the initial model weights.")
+    parser.add_argument('--epochs', type=int, default=DEFAULTS['epochs'], help="Number of training epochs.")
+    parser.add_argument('--mosaic', type=float, default=DEFAULTS['mosaic'], help="Probability of using mosaic data augmentation.")
+    parser.add_argument('--optimizer', type=str, default=DEFAULTS['optimizer'], help="Optimizer to use for training (e.g., 'AdamW').")
+    parser.add_argument('--momentum', type=float, default=DEFAULTS['momentum'], help="Optimizer momentum.")
+    parser.add_argument('--lr0', type=float, default=DEFAULTS['lr0'], help="Initial learning rate.")
+    parser.add_argument('--lrf', type=float, default=DEFAULTS['lrf'], help="Final learning rate multiplier.")
+    parser.add_argument('--single_cls', action='store_true', help="Treat all classes as a single class.")
+    parser.add_argument('--device', type=str, default=DEFAULTS['device'], help="Device to use for training (e.g., 'cpu' or 'cuda:0').")
+    parser.add_argument('--batch', type=int, default=DEFAULTS['batch'], help="Batch size for training.")
+    parser.add_argument('--imgsz', type=int, default=DEFAULTS['imgsz'], help="Input image size for training.")
+    parser.add_argument('--save', action='store_true', help="Save the model checkpoints after training.")
     args = parser.parse_args()
 
     logging.info(f"Training started on {args.device} with weights {args.weights}")
+    logging.info(f"Hyperparameters: {args}")
+
+    # ==================== MODEL INITIALIZATION ====================
     model = YOLO(args.weights)
 
-    # Train the model and collect results
+    # ==================== MODEL TRAINING ====================
     results = model.train(
         data=args.data,
         epochs=args.epochs,
@@ -88,7 +95,7 @@ def main():
 
     logging.info("Training complete. Evaluating on test set...")
 
-    # You can extract and log metrics from the results object after training
+    # ==================== TEST SET EVALUATION ====================
     try:
         metrics = model.val(data=args.data, split='test')
         logging.info(f"Test mAP50: {metrics.box.map50:.4f}, mAP50-95: {metrics.box.map:.4f}")

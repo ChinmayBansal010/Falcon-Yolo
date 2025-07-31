@@ -8,21 +8,18 @@ from flask import Flask, render_template, Response
 app = Flask(__name__)
 
 # Load the YOLOv8 model
-# NOTE: Ensure the 'best.pt' file is present in the specified path after training.
 model = YOLO("runs/detect/train/weights/best.pt")
 class_names = ["FireExtinguisher", "ToolBox", "OxygenTank"]
 
-# Global variables for video streaming control
 video_stream = None
 is_streaming = False
-detection_confidence = 0.25 # Default confidence threshold
-lock = threading.Lock() # Lock to ensure thread-safe access to video capture
+detection_confidence = 0.25 
+lock = threading.Lock() 
 
 def get_video_stream():
     """Returns a VideoCapture object, handling potential errors."""
     global video_stream
     if video_stream is None or not video_stream.isOpened():
-        # Try to initialize the camera
         video_stream = cv2.VideoCapture(0)
         if not video_stream.isOpened():
             print("Error: Could not open video stream.")
@@ -37,28 +34,22 @@ def generate_frames():
         return
 
     while is_streaming:
-        # Read a frame from the video stream
         success, frame = cap.read()
         if not success:
             break
 
-        # Perform YOLOv8 object detection on the frame
         results = model.predict(source=frame, save=False, conf=detection_confidence)
         annotated_frame = results[0].plot()
 
-        # Encode the frame as a JPEG image
         ret, buffer = cv2.imencode('.jpg', annotated_frame)
         if not ret:
             continue
 
-        # Yield the frame in a byte format suitable for web streaming
         yield (b'--frame\r\n'
                b'Content-Type: image/jpeg\r\n\r\n' + buffer.tobytes() + b'\r\n')
 
-        # Control the frame rate to avoid overloading the browser
         time.sleep(0.03)
 
-    # Release the video capture when streaming stops
     with lock:
         if video_stream is not None:
             video_stream.release()

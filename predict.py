@@ -52,7 +52,6 @@ if __name__ == '__main__':
         logging.warning(f"Images directory {images_dir} is empty")
         exit()
 
-    # Load model
     detect_path = this_dir / "runs" / "detect"
     train_folders = [f for f in os.listdir(detect_path) if os.path.isdir(detect_path / f) and f.startswith("train")]
 
@@ -102,13 +101,11 @@ if __name__ == '__main__':
         exist_ok=True
     )
 
-    # Collect metrics
     map_50 = metrics.box.map50
     map_5095 = metrics.box.map
     precision = metrics.box.p
     recall = metrics.box.r
 
-    # Log results
     log_str = (
         f"\n==== Evaluation Log ====\n"
         f"Model Path: {model_path}\n"
