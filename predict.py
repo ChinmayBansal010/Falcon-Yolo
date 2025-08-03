@@ -21,13 +21,18 @@ logging.basicConfig(
 
 # === PREDICT AND SAVE FUNCTION ===
 def predict_and_save(model, image_path, output_path, output_path_txt):
-    results = model.predict(image_path, conf=0.5)
+    img = cv2.imread(str(image_path))
+    img = cv2.resize(img, (1024, 1024))
+    img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+    results = model.predict(source = img, conf=0.3, iou=0.5, max_det=100, imgsz = 1024, augment = True)
     result = results[0]
     img = result.plot()
 
     cv2.imwrite(str(output_path), img)
     with open(output_path_txt, 'w') as f:
         for box in result.boxes:
+            if box.conf < 0.3:
+                continue
             cls_id = int(box.cls)
             x_center, y_center, width, height = box.xywh[0].tolist()
             f.write(f"{cls_id} {x_center} {y_center} {width} {height}\n")
@@ -72,7 +77,7 @@ if __name__ == '__main__':
             else:
                 print("Invalid choice, try again.")
 
-    model_path = detect_path / train_folders[idx] / "weights" / "best.pt"
+    model_path = detect_path / train_folders[idx] / "weights" / "best_map50.pt"
     model = YOLO(model_path)
 
     output_dir = this_dir / "predictions"
