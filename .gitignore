@@ -4,6 +4,4 @@ data copy/
 yolo11n.pt
 yolov8l.pt
 yolov8m.pt
-runs\detect\train\weights\best_map50.pt
-runs\detect\train\weights\best.pt
-runs\detect\train\weights\last.pt
+runs/
