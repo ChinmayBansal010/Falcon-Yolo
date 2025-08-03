@@ -4,4 +4,4 @@ data copy/
 yolo11n.pt
 yolov8l.pt
 yolov8m.pt
-runs/
+runs/detect/train/weights/
