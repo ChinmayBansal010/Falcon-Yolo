@@ -4,4 +4,5 @@ data copy/
 yolo11n.pt
 yolov8l.pt
 yolov8m.pt
-runs/detect/train/weights/
+runs/
+old_weights/
