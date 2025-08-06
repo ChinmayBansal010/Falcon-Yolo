@@ -19,7 +19,7 @@ IF "%CONDA_PREFIX%"=="" (
 
 :: Install the required packages
 echo Installing PyTorch, Torchvision, CUDA 11.8, and Ultralytics...
-conda install -c pytorch -c nvidia -c conda-forge pytorch torchvision pytorch-cuda=11.8 ultralytics -y && pip install opencv-contrib-python albumentations PyYAML flask
+conda install -c pytorch -c nvidia -c conda-forge pytorch torchvision pytorch-cuda=11.8 ultralytics -y && pip install opencv-python opencv-contrib-python albumentations PyYAML flask 
 
 
 echo Environment setup complete. You can now run your code in the 'EDU' environment.

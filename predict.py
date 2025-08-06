@@ -21,17 +21,14 @@ logging.basicConfig(
 
 # === PREDICT AND SAVE FUNCTION ===
 def predict_and_save(model, image_path, output_path, output_path_txt):
-    img = cv2.imread(str(image_path))
-    img = cv2.resize(img, (1024, 1024))
-    img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
-    results = model.predict(source = img, conf=0.3, iou=0.5, max_det=100, imgsz = 1024, augment = True)
+    results = model.predict(source = image_path, conf=0.4, iou=0.5, max_det=100, imgsz = 800, augment = True)
     result = results[0]
     img = result.plot()
 
     cv2.imwrite(str(output_path), img)
     with open(output_path_txt, 'w') as f:
         for box in result.boxes:
-            if box.conf < 0.3:
+            if box.conf < 0.4:
                 continue
             cls_id = int(box.cls)
             x_center, y_center, width, height = box.xywh[0].tolist()
@@ -103,7 +100,11 @@ if __name__ == '__main__':
         split="test",
         project=str(val_dir.parent), 
         name=val_dir.name,          
-        exist_ok=True
+        exist_ok=True,
+        imgsz=800,
+        iou = 0.5,
+        augment = True,
+        max_det=300,
     )
 
     map_50 = metrics.box.map50

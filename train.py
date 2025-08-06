@@ -3,7 +3,7 @@ import torch
 import logging
 import os
 import shutil
-import json
+import yaml
 from ultralytics import YOLO
 
 LOG_DIR = "logs"
@@ -14,12 +14,10 @@ logging.basicConfig(
     format="%(asctime)s - %(levelname)s - %(message)s",
 )
 
-# File to store the best hyperparameters
-TUNED_PARAMS_FILE = "tuned_params.json"
+TUNE_RESULTS_DIR = os.path.join("runs", "detect", "tune")
+TUNED_PARAMS_FILE = os.path.join(TUNE_RESULTS_DIR, "best_hyperparameters.yaml")
 
-# --- COMPLETE HYPERPARAMETERS DICTIONARY ---
 HYPERPARAMETERS = {
-    # Core Training Parameters
     'optimizer': 'AdamW',
     'lr0': 0.001,
     'lrf': 0.1,
@@ -34,8 +32,6 @@ HYPERPARAMETERS = {
     'cos_lr': True,
     'patience': 50,
     'label_smoothing': 0.0,
-    
-    # Augmentation Parameters
     'mosaic': 1.0,
     'mixup': 0.1,
     'copy_paste': 0.1,
@@ -49,8 +45,6 @@ HYPERPARAMETERS = {
     'perspective': 0.0,
     'flipud': 0.0,
     'fliplr': 0.5,
-    
-    # Other settings
     'close_mosaic': 20,
     'amp': True,
     'save': True,
@@ -60,6 +54,12 @@ HYPERPARAMETERS = {
 best_map50 = 0.0
 
 def on_train_epoch_end(trainer):
+    """
+    An Ultralytics callback function that executes at the end of each training epoch.
+    It logs the current epoch's mAP@0.5 and loss. It also checks if the current
+    mAP@0.5 is the best seen so far and, if so, saves a copy of the latest model
+    weights as 'best_map50.pt'.
+    """
     global best_map50
     metrics = trainer.metrics or {}
     epoch = trainer.epoch + 1
@@ -80,9 +80,22 @@ def on_train_epoch_end(trainer):
         shutil.copy(source_path, dest_path)
 
 def main():
+    """
+    The main entry point for the script. It performs the following steps:
+    1.  Parses command-line arguments for training configuration like data path,
+        epochs, batch size, etc.
+    2.  Initializes a set of default hyperparameters.
+    3.  If not in tuning mode, it checks for a 'best_hyperparameters.yaml' file
+        and loads it to override the defaults.
+    4.  Initializes a YOLO model and attaches the 'on_train_epoch_end' callback.
+    5.  If the '--tune' flag is used, it runs YOLO's built-in hyperparameter
+        tuner and saves the best discovered parameters to a YAML file.
+    6.  Proceeds with the main model training using the determined hyperparameters.
+    7.  After training, it evaluates the best-performing model on the test set.
+    """
     parser = argparse.ArgumentParser(description="Train a YOLOv8 object detection model.")
     parser.add_argument('--data', type=str, default='yolo_params.yaml', help="Path to the dataset configuration file.")
-    parser.add_argument('--weights', type=str, default='yolov8m.pt')
+    parser.add_argument('--weights', type=str, default='yolov8l.pt')
     parser.add_argument('--epochs', type=int, default=200)
     parser.add_argument('--batch', type=int, default=8)
     parser.add_argument('--imgsz', type=int, default=640)
@@ -92,15 +105,14 @@ def main():
     parser.add_argument('--workers', type=int, default=4)
     args = parser.parse_args()
 
-    # Start with the complete default hyperparameter set
     hyp = HYPERPARAMETERS.copy()
     
-    # Load saved parameters if they exist and we are not tuning
     if not args.tune and os.path.exists(TUNED_PARAMS_FILE):
         logging.info(f"Found {TUNED_PARAMS_FILE}. Loading optimized hyperparameters.")
         with open(TUNED_PARAMS_FILE, 'r') as f:
-            tuned_hyp = json.load(f)
-            hyp.update(tuned_hyp) # Update defaults with tuned values
+            tuned_hyp = yaml.safe_load(f)
+            if tuned_hyp:
+                hyp.update(tuned_hyp)
     
     global best_map50
     best_map50 = 0.0
@@ -108,26 +120,28 @@ def main():
     model = YOLO(args.weights)
     model.add_callback("on_train_epoch_end", on_train_epoch_end)
 
-    # Tuning logic
     if args.tune:
         logging.info("🚀 Starting hyperparameter tuning...")
         tune_results = model.tune(
             data=args.data, epochs=30, iterations=20, optimizer='AdamW',
-            project="runs/detect", name="tune", val=True, batch=args.batch,
+            project=os.path.dirname(TUNE_RESULTS_DIR),
+            name=os.path.basename(TUNE_RESULTS_DIR),
+            val=True, batch=args.batch,
             imgsz=args.imgsz, device=args.device, workers=args.workers,
-            patience = 10
+            patience=10
         )
         
         best_hyp = tune_results.best_hyp
         logging.info(f"Tuning complete. Best hyperparameters found: {best_hyp}")
         
+        os.makedirs(os.path.dirname(TUNED_PARAMS_FILE), exist_ok=True)
+        
         with open(TUNED_PARAMS_FILE, 'w') as f:
-            json.dump(best_hyp, f, indent=4)
+            yaml.dump(best_hyp, f, indent=4, sort_keys=False)
         logging.info(f"✅ Saved best hyperparameters to {TUNED_PARAMS_FILE}")
 
         hyp.update(best_hyp)
 
-    # Main training
     logging.info(f"Starting main training on {args.device}")
     logging.info(f"Using Hyperparameters: {hyp}")
     
@@ -142,7 +156,7 @@ def main():
     try:
         best_model_path = os.path.join(results.save_dir, 'weights', 'best_map50.pt')
         if not os.path.exists(best_model_path):
-             best_model_path = os.path.join(results.save_dir, 'weights', 'best.pt')
+            best_model_path = os.path.join(results.save_dir, 'weights', 'best.pt')
 
         best_model = YOLO(best_model_path)
         metrics = best_model.val(data=args.data, split='test', imgsz=1280, augment=True)

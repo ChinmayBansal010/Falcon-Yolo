@@ -131,3 +131,81 @@ Recall ......................................... 0.784
 Predictions Folder ............................. D:\projects\Python\Falcon-Yolo\predictions
 Validation Results Saved At .................... D:\projects\Python\Falcon-Yolo\runs\detect\val
 =========================
+2025-08-05 18:45:06,628 [INFO] Predicted images saved in D:\projects\Python\Falcon-Yolo\predictions\images
+2025-08-05 18:45:06,629 [INFO] Bounding box labels saved in D:\projects\Python\Falcon-Yolo\predictions\labels
+2025-08-05 18:45:06,630 [INFO] Model parameters loaded from D:\projects\Python\Falcon-Yolo\yolo_params.yaml
+2025-08-05 18:45:37,237 [INFO] ==== Evaluation Log ====
+Model Path: D:\projects\Python\Falcon-Yolo\runs\detect\train\weights\best_map50.pt
+Evaluation Data: D:\projects\Python\Falcon-Yolo\data\test\images
+mAP@0.5 ....................................... 0.895 (89.5%)
+mAP@0.5:0.95 ................................... 0.812
+Precision ...................................... 0.932
+Recall ......................................... 0.839
+Predictions Folder ............................. D:\projects\Python\Falcon-Yolo\predictions
+Validation Results Saved At .................... D:\projects\Python\Falcon-Yolo\runs\detect\val
+=========================
+2025-08-05 18:47:48,685 [INFO] Predicted images saved in D:\projects\Python\Falcon-Yolo\predictions\images
+2025-08-05 18:47:48,686 [INFO] Bounding box labels saved in D:\projects\Python\Falcon-Yolo\predictions\labels
+2025-08-05 18:47:48,686 [INFO] Model parameters loaded from D:\projects\Python\Falcon-Yolo\yolo_params.yaml
+2025-08-05 18:48:16,407 [INFO] ==== Evaluation Log ====
+Model Path: D:\projects\Python\Falcon-Yolo\runs\detect\train\weights\best_map50.pt
+Evaluation Data: D:\projects\Python\Falcon-Yolo\data\test\images
+mAP@0.5 ....................................... 0.895 (89.5%)
+mAP@0.5:0.95 ................................... 0.812
+Precision ...................................... 0.932
+Recall ......................................... 0.839
+Predictions Folder ............................. D:\projects\Python\Falcon-Yolo\predictions
+Validation Results Saved At .................... D:\projects\Python\Falcon-Yolo\runs\detect\val
+=========================
+2025-08-05 19:18:43,576 [INFO] Predicted images saved in D:\projects\Python\Falcon-Yolo\predictions\images
+2025-08-05 19:18:43,576 [INFO] Bounding box labels saved in D:\projects\Python\Falcon-Yolo\predictions\labels
+2025-08-05 19:18:43,576 [INFO] Model parameters loaded from D:\projects\Python\Falcon-Yolo\yolo_params.yaml
+2025-08-05 19:19:11,146 [INFO] ==== Evaluation Log ====
+Model Path: D:\projects\Python\Falcon-Yolo\runs\detect\train\weights\best_map50.pt
+Evaluation Data: D:\projects\Python\Falcon-Yolo\data\test\images
+mAP@0.5 ....................................... 0.895 (89.5%)
+mAP@0.5:0.95 ................................... 0.812
+Precision ...................................... 0.932
+Recall ......................................... 0.839
+Predictions Folder ............................. D:\projects\Python\Falcon-Yolo\predictions
+Validation Results Saved At .................... D:\projects\Python\Falcon-Yolo\runs\detect\val
+=========================
+2025-08-05 19:20:00,560 [INFO] Predicted images saved in D:\projects\Python\Falcon-Yolo\predictions\images
+2025-08-05 19:20:00,561 [INFO] Bounding box labels saved in D:\projects\Python\Falcon-Yolo\predictions\labels
+2025-08-05 19:20:00,561 [INFO] Model parameters loaded from D:\projects\Python\Falcon-Yolo\yolo_params.yaml
+2025-08-05 19:20:53,804 [INFO] ==== Evaluation Log ====
+Model Path: D:\projects\Python\Falcon-Yolo\runs\detect\train\weights\best_map50.pt
+Evaluation Data: D:\projects\Python\Falcon-Yolo\data\test\images
+mAP@0.5 ....................................... 0.887 (88.7%)
+mAP@0.5:0.95 ................................... 0.800
+Precision ...................................... 0.932
+Recall ......................................... 0.836
+Predictions Folder ............................. D:\projects\Python\Falcon-Yolo\predictions
+Validation Results Saved At .................... D:\projects\Python\Falcon-Yolo\runs\detect\val
+=========================
+2025-08-05 19:21:48,246 [INFO] Predicted images saved in D:\projects\Python\Falcon-Yolo\predictions\images
+2025-08-05 19:21:48,247 [INFO] Bounding box labels saved in D:\projects\Python\Falcon-Yolo\predictions\labels
+2025-08-05 19:21:48,247 [INFO] Model parameters loaded from D:\projects\Python\Falcon-Yolo\yolo_params.yaml
+2025-08-05 19:22:24,775 [INFO] ==== Evaluation Log ====
+Model Path: D:\projects\Python\Falcon-Yolo\runs\detect\train\weights\best_map50.pt
+Evaluation Data: D:\projects\Python\Falcon-Yolo\data\test\images
+mAP@0.5 ....................................... 0.895 (89.5%)
+mAP@0.5:0.95 ................................... 0.811
+Precision ...................................... 0.955
+Recall ......................................... 0.834
+Predictions Folder ............................. D:\projects\Python\Falcon-Yolo\predictions
+Validation Results Saved At .................... D:\projects\Python\Falcon-Yolo\runs\detect\val
+=========================
+2025-08-05 19:22:44,658 [INFO] Predicted images saved in D:\projects\Python\Falcon-Yolo\predictions\images
+2025-08-05 19:22:44,659 [INFO] Bounding box labels saved in D:\projects\Python\Falcon-Yolo\predictions\labels
+2025-08-05 19:22:44,659 [INFO] Model parameters loaded from D:\projects\Python\Falcon-Yolo\yolo_params.yaml
+2025-08-05 19:23:20,498 [INFO] ==== Evaluation Log ====
+Model Path: D:\projects\Python\Falcon-Yolo\runs\detect\train\weights\best_map50.pt
+Evaluation Data: D:\projects\Python\Falcon-Yolo\data\test\images
+mAP@0.5 ....................................... 0.895 (89.5%)
+mAP@0.5:0.95 ................................... 0.811
+Precision ...................................... 0.955
+Recall ......................................... 0.834
+Predictions Folder ............................. D:\projects\Python\Falcon-Yolo\predictions
+Validation Results Saved At .................... D:\projects\Python\Falcon-Yolo\runs\detect\val
+=========================

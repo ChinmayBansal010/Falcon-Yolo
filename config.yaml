@@ -1,0 +1,10 @@
+runs_directory: "runs/detect"
+weights_filename: "weights/best_map50.pt"
+initial_confidence: 0.40
+frame_skip: 1
+tracking_enabled: true
+tracker_config: "botsort.yaml"
+logging_enabled: true
+updater_enabled: true
+falcon_model_drop_path: "D:/projects/Python/Falcon-Yolo/falcon_pipeline"
+updater_check_interval: 300

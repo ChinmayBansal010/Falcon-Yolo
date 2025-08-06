@@ -6,3 +6,5 @@ yolov8l.pt
 yolov8m.pt
 runs/
 old_weights/
+old_weights2/
+falcon_pipeline/

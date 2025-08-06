@@ -1298,3 +1298,145 @@
 2025-08-04 15:59:42,597 - INFO - \U0001f680 Starting hyperparameter tuning...
 2025-08-04 16:09:50,667 - INFO - \U0001f680 Starting hyperparameter tuning...
 2025-08-04 16:12:16,613 - INFO - \U0001f680 Starting hyperparameter tuning...
+2025-08-04 16:26:08,495 - INFO - \U0001f680 Starting hyperparameter tuning...
+2025-08-05 16:07:36,398 - INFO - Starting main training on cuda
+2025-08-05 16:07:36,398 - INFO - Using Hyperparameters: {'optimizer': 'AdamW', 'lr0': 0.001, 'lrf': 0.1, 'momentum': 0.937, 'weight_decay': 0.0005, 'warmup_epochs': 5.0, 'warmup_momentum': 0.8, 'warmup_bias_lr': 0.05, 'box': 7.5, 'cls': 0.5, 'dfl': 1.5, 'cos_lr': True, 'patience': 50, 'label_smoothing': 0.0, 'mosaic': 1.0, 'mixup': 0.1, 'copy_paste': 0.1, 'hsv_h': 0.015, 'hsv_s': 0.7, 'hsv_v': 0.4, 'degrees': 0.0, 'translate': 0.1, 'scale': 0.5, 'shear': 0.0, 'perspective': 0.0, 'flipud': 0.0, 'fliplr': 0.5, 'close_mosaic': 20, 'amp': True, 'save': True, 'verbose': False}
+2025-08-05 16:12:17,194 - INFO - Found runs\detect\tune\best_hyperparameters.yaml. Loading optimized hyperparameters.
+2025-08-05 16:12:17,484 - INFO - Starting main training on cuda
+2025-08-05 16:12:17,485 - INFO - Using Hyperparameters: {'optimizer': 'AdamW', 'lr0': 0.00496, 'lrf': 0.00798, 'momentum': 0.93876, 'weight_decay': 0.001, 'warmup_epochs': 2.16028, 'warmup_momentum': 0.91571, 'warmup_bias_lr': 0.05, 'box': 6.11636, 'cls': 0.39758, 'dfl': 1.45177, 'cos_lr': True, 'patience': 50, 'label_smoothing': 0.0, 'mosaic': 0.8751, 'mixup': 0.0, 'copy_paste': 0.0, 'hsv_h': 0.01777, 'hsv_s': 0.80905, 'hsv_v': 0.30004, 'degrees': 0.0, 'translate': 0.04777, 'scale': 0.56288, 'shear': 0.0, 'perspective': 0.0, 'flipud': 0.0, 'fliplr': 0.50524, 'close_mosaic': 20, 'amp': True, 'save': True, 'verbose': False, 'bgr': 0.0, 'cutmix': 0.0}
+2025-08-05 16:13:45,879 - INFO - Epoch 1/200 | mAP@0.5: 0.0000, Loss: -1.0000
+2025-08-05 16:14:30,576 - INFO - Epoch 2/200 | mAP@0.5: 0.0004, Loss: -1.0000
+2025-08-05 16:14:30,577 - INFO - \U0001f680 New best mAP@0.5: 0.0004! Saving model...
+2025-08-05 16:15:18,017 - INFO - Epoch 3/200 | mAP@0.5: 0.0039, Loss: -1.0000
+2025-08-05 16:15:18,017 - INFO - \U0001f680 New best mAP@0.5: 0.0039! Saving model...
+2025-08-05 16:16:07,339 - INFO - Epoch 4/200 | mAP@0.5: 0.4092, Loss: -1.0000
+2025-08-05 16:16:07,339 - INFO - \U0001f680 New best mAP@0.5: 0.4092! Saving model...
+2025-08-05 16:16:59,547 - INFO - Epoch 5/200 | mAP@0.5: 0.4685, Loss: -1.0000
+2025-08-05 16:16:59,547 - INFO - \U0001f680 New best mAP@0.5: 0.4685! Saving model...
+2025-08-05 16:17:53,585 - INFO - Epoch 6/200 | mAP@0.5: 0.6626, Loss: -1.0000
+2025-08-05 16:17:53,586 - INFO - \U0001f680 New best mAP@0.5: 0.6626! Saving model...
+2025-08-05 16:18:47,635 - INFO - Epoch 7/200 | mAP@0.5: 0.6331, Loss: -1.0000
+2025-08-05 16:19:41,396 - INFO - Epoch 8/200 | mAP@0.5: 0.7263, Loss: -1.0000
+2025-08-05 16:19:41,396 - INFO - \U0001f680 New best mAP@0.5: 0.7263! Saving model...
+2025-08-05 16:20:35,233 - INFO - Epoch 9/200 | mAP@0.5: 0.7244, Loss: -1.0000
+2025-08-05 16:20:49,513 - INFO - Found runs\detect\tune\best_hyperparameters.yaml. Loading optimized hyperparameters.
+2025-08-05 16:21:01,236 - INFO - Starting main training on cuda
+2025-08-05 16:21:01,236 - INFO - Using Hyperparameters: {'optimizer': 'AdamW', 'lr0': 0.00496, 'lrf': 0.00798, 'momentum': 0.93876, 'weight_decay': 0.001, 'warmup_epochs': 2.16028, 'warmup_momentum': 0.91571, 'warmup_bias_lr': 0.05, 'box': 6.11636, 'cls': 0.39758, 'dfl': 1.45177, 'cos_lr': True, 'patience': 50, 'label_smoothing': 0.0, 'mosaic': 0.8751, 'mixup': 0.0, 'copy_paste': 0.0, 'hsv_h': 0.01777, 'hsv_s': 0.80905, 'hsv_v': 0.30004, 'degrees': 0.0, 'translate': 0.04777, 'scale': 0.56288, 'shear': 0.0, 'perspective': 0.0, 'flipud': 0.0, 'fliplr': 0.50524, 'close_mosaic': 20, 'amp': True, 'save': True, 'verbose': False, 'bgr': 0.0, 'cutmix': 0.0}
+2025-08-05 16:22:53,059 - INFO - Epoch 1/200 | mAP@0.5: 0.0000, Loss: -1.0000
+2025-08-05 16:24:34,871 - INFO - Found runs\detect\tune\best_hyperparameters.yaml. Loading optimized hyperparameters.
+2025-08-05 16:24:35,262 - INFO - Starting main training on cuda
+2025-08-05 16:24:35,262 - INFO - Using Hyperparameters: {'optimizer': 'AdamW', 'lr0': 0.00496, 'lrf': 0.00798, 'momentum': 0.93876, 'weight_decay': 0.001, 'warmup_epochs': 2.16028, 'warmup_momentum': 0.91571, 'warmup_bias_lr': 0.05, 'box': 6.11636, 'cls': 0.39758, 'dfl': 1.45177, 'cos_lr': True, 'patience': 50, 'label_smoothing': 0.0, 'mosaic': 0.8751, 'mixup': 0.0, 'copy_paste': 0.0, 'hsv_h': 0.01777, 'hsv_s': 0.80905, 'hsv_v': 0.30004, 'degrees': 0.0, 'translate': 0.04777, 'scale': 0.56288, 'shear': 0.0, 'perspective': 0.0, 'flipud': 0.0, 'fliplr': 0.50524, 'close_mosaic': 20, 'amp': True, 'save': True, 'verbose': False, 'bgr': 0.0, 'cutmix': 0.0}
+2025-08-05 16:26:21,662 - INFO - Epoch 1/200 | mAP@0.5: 0.0000, Loss: -1.0000
+2025-08-05 16:27:39,213 - INFO - Epoch 2/200 | mAP@0.5: 0.9248, Loss: -1.0000
+2025-08-05 16:27:39,213 - INFO - \U0001f680 New best mAP@0.5: 0.9248! Saving model...
+2025-08-05 16:28:56,985 - INFO - Epoch 3/200 | mAP@0.5: 0.9258, Loss: -1.0000
+2025-08-05 16:28:56,985 - INFO - \U0001f680 New best mAP@0.5: 0.9258! Saving model...
+2025-08-05 16:30:21,141 - INFO - Epoch 4/200 | mAP@0.5: 0.9123, Loss: -1.0000
+2025-08-05 16:31:45,058 - INFO - Epoch 5/200 | mAP@0.5: 0.9185, Loss: -1.0000
+2025-08-05 16:33:08,034 - INFO - Epoch 6/200 | mAP@0.5: 0.9093, Loss: -1.0000
+2025-08-05 16:34:28,802 - INFO - Epoch 7/200 | mAP@0.5: 0.9200, Loss: -1.0000
+2025-08-05 16:35:48,064 - INFO - Epoch 8/200 | mAP@0.5: 0.9222, Loss: -1.0000
+2025-08-05 16:37:08,348 - INFO - Epoch 9/200 | mAP@0.5: 0.9203, Loss: -1.0000
+2025-08-05 16:38:31,340 - INFO - Epoch 10/200 | mAP@0.5: 0.9102, Loss: -1.0000
+2025-08-05 16:39:56,099 - INFO - Epoch 11/200 | mAP@0.5: 0.9318, Loss: -1.0000
+2025-08-05 16:39:56,099 - INFO - \U0001f680 New best mAP@0.5: 0.9318! Saving model...
+2025-08-05 16:41:17,690 - INFO - Epoch 12/200 | mAP@0.5: 0.9197, Loss: -1.0000
+2025-08-05 16:42:38,563 - INFO - Epoch 13/200 | mAP@0.5: 0.8995, Loss: -1.0000
+2025-08-05 16:44:02,768 - INFO - Epoch 14/200 | mAP@0.5: 0.9142, Loss: -1.0000
+2025-08-05 16:45:11,944 - INFO - Found runs\detect\tune\best_hyperparameters.yaml. Loading optimized hyperparameters.
+2025-08-05 16:45:12,345 - INFO - Starting main training on cuda
+2025-08-05 16:45:12,345 - INFO - Using Hyperparameters: {'optimizer': 'AdamW', 'lr0': 0.0005, 'lrf': 0.00798, 'momentum': 0.93876, 'weight_decay': 0.001, 'warmup_epochs': 2.16028, 'warmup_momentum': 0.91571, 'warmup_bias_lr': 0.05, 'box': 6.11636, 'cls': 0.39758, 'dfl': 1.45177, 'cos_lr': True, 'patience': 50, 'label_smoothing': 0.0, 'mosaic': 0.8751, 'mixup': 0.0, 'copy_paste': 0.0, 'hsv_h': 0.01777, 'hsv_s': 0.80905, 'hsv_v': 0.30004, 'degrees': 0.0, 'translate': 0.04777, 'scale': 0.56288, 'shear': 0.0, 'perspective': 0.0, 'flipud': 0.0, 'fliplr': 0.50524, 'close_mosaic': 20, 'amp': True, 'save': True, 'verbose': False, 'bgr': 0.0, 'cutmix': 0.0}
+2025-08-05 16:47:07,720 - INFO - Epoch 1/200 | mAP@0.5: 0.0000, Loss: -1.0000
+2025-08-05 16:48:28,244 - INFO - Epoch 2/200 | mAP@0.5: 0.9602, Loss: -1.0000
+2025-08-05 16:48:28,244 - INFO - \U0001f680 New best mAP@0.5: 0.9602! Saving model...
+2025-08-05 16:49:48,281 - INFO - Epoch 3/200 | mAP@0.5: 0.9627, Loss: -1.0000
+2025-08-05 16:49:48,283 - INFO - \U0001f680 New best mAP@0.5: 0.9627! Saving model...
+2025-08-05 16:51:09,073 - INFO - Epoch 4/200 | mAP@0.5: 0.9571, Loss: -1.0000
+2025-08-05 16:52:30,336 - INFO - Epoch 5/200 | mAP@0.5: 0.9608, Loss: -1.0000
+2025-08-05 16:53:51,756 - INFO - Epoch 6/200 | mAP@0.5: 0.9622, Loss: -1.0000
+2025-08-05 16:55:12,504 - INFO - Epoch 7/200 | mAP@0.5: 0.9612, Loss: -1.0000
+2025-08-05 16:56:33,019 - INFO - Epoch 8/200 | mAP@0.5: 0.9631, Loss: -1.0000
+2025-08-05 16:56:33,020 - INFO - \U0001f680 New best mAP@0.5: 0.9631! Saving model...
+2025-08-05 16:57:54,630 - INFO - Epoch 9/200 | mAP@0.5: 0.9632, Loss: -1.0000
+2025-08-05 16:57:54,630 - INFO - \U0001f680 New best mAP@0.5: 0.9632! Saving model...
+2025-08-05 16:59:15,059 - INFO - Epoch 10/200 | mAP@0.5: 0.9699, Loss: -1.0000
+2025-08-05 16:59:15,060 - INFO - \U0001f680 New best mAP@0.5: 0.9699! Saving model...
+2025-08-05 17:00:36,426 - INFO - Epoch 11/200 | mAP@0.5: 0.9626, Loss: -1.0000
+2025-08-05 17:01:57,352 - INFO - Epoch 12/200 | mAP@0.5: 0.9626, Loss: -1.0000
+2025-08-05 17:03:18,331 - INFO - Epoch 13/200 | mAP@0.5: 0.9610, Loss: -1.0000
+2025-08-05 17:04:39,329 - INFO - Epoch 14/200 | mAP@0.5: 0.9597, Loss: -1.0000
+2025-08-05 17:06:00,988 - INFO - Epoch 15/200 | mAP@0.5: 0.9629, Loss: -1.0000
+2025-08-05 17:07:23,737 - INFO - Epoch 16/200 | mAP@0.5: 0.9647, Loss: -1.0000
+2025-08-05 17:08:45,678 - INFO - Epoch 17/200 | mAP@0.5: 0.9628, Loss: -1.0000
+2025-08-05 17:10:07,403 - INFO - Epoch 18/200 | mAP@0.5: 0.9642, Loss: -1.0000
+2025-08-05 17:11:29,012 - INFO - Epoch 19/200 | mAP@0.5: 0.9615, Loss: -1.0000
+2025-08-05 17:12:51,122 - INFO - Epoch 20/200 | mAP@0.5: 0.9609, Loss: -1.0000
+2025-08-05 17:14:16,184 - INFO - Epoch 21/200 | mAP@0.5: 0.9633, Loss: -1.0000
+2025-08-05 17:15:41,688 - INFO - Epoch 22/200 | mAP@0.5: 0.9617, Loss: -1.0000
+2025-08-05 17:17:06,401 - INFO - Epoch 23/200 | mAP@0.5: 0.9641, Loss: -1.0000
+2025-08-05 17:18:30,977 - INFO - Epoch 24/200 | mAP@0.5: 0.9681, Loss: -1.0000
+2025-08-05 17:19:55,672 - INFO - Epoch 25/200 | mAP@0.5: 0.9653, Loss: -1.0000
+2025-08-05 17:21:18,860 - INFO - Epoch 26/200 | mAP@0.5: 0.9658, Loss: -1.0000
+2025-08-05 17:22:41,327 - INFO - Epoch 27/200 | mAP@0.5: 0.9663, Loss: -1.0000
+2025-08-05 17:24:03,247 - INFO - Epoch 28/200 | mAP@0.5: 0.9692, Loss: -1.0000
+2025-08-05 17:25:26,256 - INFO - Epoch 29/200 | mAP@0.5: 0.9684, Loss: -1.0000
+2025-08-05 17:26:48,629 - INFO - Epoch 30/200 | mAP@0.5: 0.9656, Loss: -1.0000
+2025-08-05 17:28:10,596 - INFO - Epoch 31/200 | mAP@0.5: 0.9631, Loss: -1.0000
+2025-08-05 17:29:31,791 - INFO - Epoch 32/200 | mAP@0.5: 0.9668, Loss: -1.0000
+2025-08-05 17:30:53,698 - INFO - Epoch 33/200 | mAP@0.5: 0.9642, Loss: -1.0000
+2025-08-05 17:32:15,807 - INFO - Epoch 34/200 | mAP@0.5: 0.9657, Loss: -1.0000
+2025-08-05 17:33:37,900 - INFO - Epoch 35/200 | mAP@0.5: 0.9683, Loss: -1.0000
+2025-08-05 17:34:59,530 - INFO - Epoch 36/200 | mAP@0.5: 0.9683, Loss: -1.0000
+2025-08-05 17:36:20,581 - INFO - Epoch 37/200 | mAP@0.5: 0.9649, Loss: -1.0000
+2025-08-05 17:37:42,472 - INFO - Epoch 38/200 | mAP@0.5: 0.9630, Loss: -1.0000
+2025-08-05 17:39:04,801 - INFO - Epoch 39/200 | mAP@0.5: 0.9657, Loss: -1.0000
+2025-08-05 17:40:26,322 - INFO - Epoch 40/200 | mAP@0.5: 0.9682, Loss: -1.0000
+2025-08-05 17:41:48,338 - INFO - Epoch 41/200 | mAP@0.5: 0.9594, Loss: -1.0000
+2025-08-05 17:43:10,441 - INFO - Epoch 42/200 | mAP@0.5: 0.9562, Loss: -1.0000
+2025-08-05 17:44:32,885 - INFO - Epoch 43/200 | mAP@0.5: 0.9641, Loss: -1.0000
+2025-08-05 17:45:55,081 - INFO - Epoch 44/200 | mAP@0.5: 0.9654, Loss: -1.0000
+2025-08-05 17:47:17,617 - INFO - Epoch 45/200 | mAP@0.5: 0.9639, Loss: -1.0000
+2025-08-05 17:48:39,547 - INFO - Epoch 46/200 | mAP@0.5: 0.9625, Loss: -1.0000
+2025-08-05 17:50:01,237 - INFO - Epoch 47/200 | mAP@0.5: 0.9626, Loss: -1.0000
+2025-08-05 17:51:22,800 - INFO - Epoch 48/200 | mAP@0.5: 0.9657, Loss: -1.0000
+2025-08-05 17:52:45,092 - INFO - Epoch 49/200 | mAP@0.5: 0.9682, Loss: -1.0000
+2025-08-05 17:54:10,484 - INFO - Epoch 50/200 | mAP@0.5: 0.9692, Loss: -1.0000
+2025-08-05 17:55:35,789 - INFO - Epoch 51/200 | mAP@0.5: 0.9637, Loss: -1.0000
+2025-08-05 17:56:58,781 - INFO - Epoch 52/200 | mAP@0.5: 0.9618, Loss: -1.0000
+2025-08-05 17:58:21,502 - INFO - Epoch 53/200 | mAP@0.5: 0.9581, Loss: -1.0000
+2025-08-05 17:59:44,450 - INFO - Epoch 54/200 | mAP@0.5: 0.9601, Loss: -1.0000
+2025-08-05 18:01:06,892 - INFO - Epoch 55/200 | mAP@0.5: 0.9640, Loss: -1.0000
+2025-08-05 18:02:28,931 - INFO - Epoch 56/200 | mAP@0.5: 0.9605, Loss: -1.0000
+2025-08-05 18:03:51,501 - INFO - Epoch 57/200 | mAP@0.5: 0.9631, Loss: -1.0000
+2025-08-05 18:05:13,649 - INFO - Epoch 58/200 | mAP@0.5: 0.9609, Loss: -1.0000
+2025-08-05 18:06:36,774 - INFO - Epoch 59/200 | mAP@0.5: 0.9570, Loss: -1.0000
+2025-08-05 18:08:02,057 - INFO - Epoch 60/200 | mAP@0.5: 0.9606, Loss: -1.0000
+2025-08-05 18:09:26,499 - INFO - Epoch 61/200 | mAP@0.5: 0.9622, Loss: -1.0000
+2025-08-05 18:10:49,199 - INFO - Epoch 62/200 | mAP@0.5: 0.9640, Loss: -1.0000
+2025-08-05 18:12:11,392 - INFO - Epoch 63/200 | mAP@0.5: 0.9597, Loss: -1.0000
+2025-08-05 18:13:35,741 - INFO - Epoch 64/200 | mAP@0.5: 0.9648, Loss: -1.0000
+2025-08-05 18:14:58,728 - INFO - Epoch 65/200 | mAP@0.5: 0.9670, Loss: -1.0000
+2025-08-05 18:16:20,591 - INFO - Epoch 66/200 | mAP@0.5: 0.9637, Loss: -1.0000
+2025-08-05 18:17:43,107 - INFO - Epoch 67/200 | mAP@0.5: 0.9616, Loss: -1.0000
+2025-08-05 18:19:05,220 - INFO - Epoch 68/200 | mAP@0.5: 0.9650, Loss: -1.0000
+2025-08-05 18:20:27,179 - INFO - Epoch 69/200 | mAP@0.5: 0.9663, Loss: -1.0000
+2025-08-05 18:21:50,141 - INFO - Epoch 70/200 | mAP@0.5: 0.9621, Loss: -1.0000
+2025-08-05 18:23:13,157 - INFO - Epoch 71/200 | mAP@0.5: 0.9590, Loss: -1.0000
+2025-08-05 18:24:35,280 - INFO - Epoch 72/200 | mAP@0.5: 0.9649, Loss: -1.0000
+2025-08-05 18:25:57,049 - INFO - Epoch 73/200 | mAP@0.5: 0.9590, Loss: -1.0000
+2025-08-05 18:27:19,433 - INFO - Epoch 74/200 | mAP@0.5: 0.9609, Loss: -1.0000
+2025-08-05 18:28:42,021 - INFO - Epoch 75/200 | mAP@0.5: 0.9603, Loss: -1.0000
+2025-08-05 18:30:06,447 - INFO - Epoch 76/200 | mAP@0.5: 0.9595, Loss: -1.0000
+2025-08-05 18:31:29,399 - INFO - Epoch 77/200 | mAP@0.5: 0.9590, Loss: -1.0000
+2025-08-05 18:32:54,042 - INFO - Epoch 78/200 | mAP@0.5: 0.9596, Loss: -1.0000
+2025-08-05 18:34:16,778 - INFO - Epoch 79/200 | mAP@0.5: 0.9658, Loss: -1.0000
+2025-08-05 18:35:38,908 - INFO - Epoch 80/200 | mAP@0.5: 0.9642, Loss: -1.0000
+2025-08-05 18:36:52,401 - INFO - Found runs\detect\tune\best_hyperparameters.yaml. Loading optimized hyperparameters.
+2025-08-05 18:36:52,782 - INFO - Starting main training on cuda
+2025-08-05 18:36:52,783 - INFO - Using Hyperparameters: {'optimizer': 'AdamW', 'lr0': 0.0002, 'lrf': 0.00798, 'momentum': 0.93876, 'weight_decay': 0.001, 'warmup_epochs': 2.16028, 'warmup_momentum': 0.91571, 'warmup_bias_lr': 0.05, 'box': 6.11636, 'cls': 0.39758, 'dfl': 1.45177, 'cos_lr': True, 'patience': 50, 'label_smoothing': 0.0, 'mosaic': 0.8751, 'mixup': 0.0, 'copy_paste': 0.0, 'hsv_h': 0.01777, 'hsv_s': 0.80905, 'hsv_v': 0.30004, 'degrees': 0.0, 'translate': 0.04777, 'scale': 0.56288, 'shear': 0.0, 'perspective': 0.0, 'flipud': 0.0, 'fliplr': 0.50524, 'close_mosaic': 20, 'amp': True, 'save': True, 'verbose': False, 'bgr': 0.0, 'cutmix': 0.0}
+2025-08-05 18:38:38,991 - INFO - Epoch 1/200 | mAP@0.5: 0.0000, Loss: -1.0000
+2025-08-05 18:39:56,996 - INFO - Epoch 2/200 | mAP@0.5: 0.9592, Loss: -1.0000
+2025-08-05 18:39:56,996 - INFO - \U0001f680 New best mAP@0.5: 0.9592! Saving model...
+2025-08-05 18:41:15,425 - INFO - Epoch 3/200 | mAP@0.5: 0.9626, Loss: -1.0000
+2025-08-05 18:41:15,426 - INFO - \U0001f680 New best mAP@0.5: 0.9626! Saving model...
+2025-08-05 18:42:33,436 - INFO - Epoch 4/200 | mAP@0.5: 0.9623, Loss: -1.0000
