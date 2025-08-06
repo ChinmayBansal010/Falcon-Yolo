@@ -68,6 +68,8 @@ for cls_id, label_files in class_counts.items():
         if not augmented['bboxes']:
             continue
         
+        
+        
         aug_img_bgr = cv2.cvtColor(augmented['image'], cv2.COLOR_RGB2BGR)
         
         # --- MODIFIED: Use the IMAGE_EXTENSION constant for saving ---

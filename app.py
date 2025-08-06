@@ -33,7 +33,6 @@ if config['logging_enabled'] and not log_file_path.exists():
         writer.writerow(['timestamp', 'track_id', 'class_name', 'confidence'])
 
 def log_detection(track_id, class_name, confidence):
-    """Logs a new detection event to the CSV file."""
     if not config['logging_enabled']:
         return
     timestamp = datetime.now().isoformat()
@@ -42,14 +41,12 @@ def log_detection(track_id, class_name, confidence):
         writer.writerow([timestamp, track_id, class_name, confidence])
 
 def get_specific_train_folder(runs_dir):
-    """Finds the specific 'train' folder, ignoring others."""
     target_folder = Path(runs_dir) / "train"
     if target_folder.is_dir():
         return target_folder
     return None
 
 def load_model():
-    """Loads the YOLO model from the specific 'train' folder."""
     global model, model_version
     train_dir = get_specific_train_folder(config['runs_directory'])
     if not train_dir:
@@ -61,67 +58,71 @@ def load_model():
     model_version = train_dir.name
     print(f"Successfully loaded model: {model_path} (Version: {model_version})")
 
-def get_video_stream():
-    """Safely initializes and returns the video stream."""
-    global video_stream
-    with lock:
-        if video_stream is None or not video_stream.isOpened():
-            video_stream = cv2.VideoCapture(0)
-            if not video_stream.isOpened():
-                print("Error: Could not open video stream.")
-                return None
-    return video_stream
-
-def generate_frames():
-    """Generates frames for the video stream with object tracking."""
+def process_and_encode_frame(frame):
     global active_tracks, seen_track_ids
-    frame_count = 0
-    cap = get_video_stream()
-    if cap is None:
+    with lock:
+        conf = detection_confidence
+    
+    results = model.track(source=frame, save=False, conf=conf, persist=True, tracker=config['tracker_config'], verbose=False)
+    annotated_frame = results[0].plot()
+
+    current_tracks = Counter()
+    if results[0].boxes.id is not None:
+        track_ids = results[0].boxes.id.int().cpu().tolist()
+        confs = results[0].boxes.conf.cpu().tolist()
+        clss = results[0].boxes.cls.cpu().tolist()
+        for track_id, cls_id, conf_val in zip(track_ids, clss, confs):
+            class_name = model.names[int(cls_id)]
+            current_tracks[class_name] += 1
+            if track_id not in seen_track_ids:
+                seen_track_ids.add(track_id)
+                log_detection(track_id, class_name, conf_val)
+                detection_history.append({'timestamp': datetime.now(), 'class': class_name})
+    
+    with lock:
+        active_tracks = dict(current_tracks)
+    
+    ret, buffer = cv2.imencode('.jpg', annotated_frame)
+    if ret:
+        return buffer.tobytes()
+    return None
+
+def generate_laptop_frames():
+    cap = cv2.VideoCapture(0)
+    if not cap.isOpened():
+        print("Error: Could not open laptop camera.")
         return
 
-    while is_streaming:
+    while True:
+        success, frame = cap.read()
+        if not success:
+            break
+        
+        encoded_frame = process_and_encode_frame(frame)
+        if encoded_frame:
+            yield (b'--frame\r\n' b'Content-Type: image/jpeg\r\n\r\n' + encoded_frame + b'\r\n')
+    
+    cap.release()
+
+def generate_mobile_frames():
+    video_url = 'http://192.0.0.4:8080/video'
+    cap = cv2.VideoCapture(video_url, cv2.CAP_FFMPEG)
+    if not cap.isOpened():
+        print("Error: Could not open mobile camera stream.")
+        return
+        
+    while True:
         success, frame = cap.read()
         if not success:
             break
 
-        frame_count += 1
-        if frame_count % frame_skip != 0:
-            ret, buffer = cv2.imencode('.jpg', frame)
-            if ret:
-                yield (b'--frame\r\n' b'Content-Type: image/jpeg\r\n\r\n' + buffer.tobytes() + b'\r\n')
-            continue
-
-        with lock:
-            conf = detection_confidence
-        
-        results = model.track(source=frame, save=False, conf=conf, persist=True, tracker=config['tracker_config'], verbose=False)
-        annotated_frame = results[0].plot()
-
-        current_tracks = Counter()
-        if results[0].boxes.id is not None:
-            track_ids = results[0].boxes.id.int().cpu().tolist()
-            confs = results[0].boxes.conf.cpu().tolist()
-            clss = results[0].boxes.cls.cpu().tolist()
-
-            for track_id, cls_id, conf_val in zip(track_ids, clss, confs):
-                class_name = model.names[int(cls_id)]
-                current_tracks[class_name] += 1
-                
-                if track_id not in seen_track_ids:
-                    seen_track_ids.add(track_id)
-                    log_detection(track_id, class_name, conf_val)
-                    detection_history.append({'timestamp': datetime.now(), 'class': class_name})
-        
-        with lock:
-            active_tracks = dict(current_tracks)
-
-        ret, buffer = cv2.imencode('.jpg', annotated_frame)
-        if ret:
-            yield (b'--frame\r\n' b'Content-Type: image/jpeg\r\n\r\n' + buffer.tobytes() + b'\r\n')
+        encoded_frame = process_and_encode_frame(frame)
+        if encoded_frame:
+            yield (b'--frame\r\n' b'Content-Type: image/jpeg\r\n\r\n' + encoded_frame + b'\r\n')
+    
+    cap.release()
 
 def event_stream():
-    """Server-Sent Events (SSE) stream for real-time data."""
     initial_load = True
     while True:
         with lock:
@@ -129,7 +130,6 @@ def event_stream():
                 "tracks": active_tracks,
                 "model_version": model_version
             }
-            # On the first yield, also send the class names
             if initial_load and model:
                 data["class_names"] = list(model.names.values())
                 initial_load = False
@@ -138,7 +138,6 @@ def event_stream():
         time.sleep(1)
 
 def model_updater():
-    """Background thread to check for and load new models from the Falcon pipeline."""
     global model, model_version
     drop_path = Path(config['falcon_model_drop_path'])
     version_file = drop_path / "version.json"
@@ -168,24 +167,22 @@ def model_updater():
 
 @app.route('/')
 def index():
-    """Serves the main web page."""
     return render_template('index.html')
 
-@app.route('/video_feed')
-def video_feed():
-    """Streams the webcam feed with detections."""
-    global is_streaming
-    is_streaming = True
-    return Response(stream_with_context(generate_frames()), mimetype='multipart/x-mixed-replace; boundary=frame')
+@app.route('/video_feed_laptop')
+def video_feed_laptop():
+    return Response(stream_with_context(generate_laptop_frames()), mimetype='multipart/x-mixed-replace; boundary=frame')
+
+@app.route('/video_feed_mobile')
+def video_feed_mobile():
+    return Response(stream_with_context(generate_mobile_frames()), mimetype='multipart/x-mixed-replace; boundary=frame')
 
 @app.route('/events')
 def events():
-    """Endpoint for Server-Sent Events."""
     return Response(event_stream(), mimetype='text/event-stream')
 
 @app.route('/chart_data')
 def chart_data():
-    """Provides data for the live chart."""
     now = datetime.now()
     one_minute_ago = now - timedelta(seconds=60)
     
@@ -200,7 +197,6 @@ def chart_data():
 
 @app.route('/set_confidence', methods=['POST'])
 def set_confidence():
-    """Sets the detection confidence threshold."""
     global detection_confidence
     data = request.get_json()
     with lock:

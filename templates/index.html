@@ -242,7 +242,7 @@
             videoStream.style.display = 'block';
         };
         videoStream.onerror = () => { videoOverlay.innerHTML = '<span>Stream Error</span>'; };
-        videoStream.src = "{{ url_for('video_feed') }}";
+        videoStream.src = "{{ url_for('video_feed_laptop') }}";
         
         const eventSource = new EventSource("/events");
         
